@@ -3,16 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/n1207n/golang-url-shortener/routing"
+	"github.com/n1207n/golang-url-shortener/services"
 )
 
 func main() {
 	r := gin.Default()
 
-	r.GET("/", func(context *gin.Context) {
-		context.JSON(200, gin.H{
-			"message": "Hello World",
-		})
-	})
+	routing.BuildRouters(r)
+	services.NewStorageService()
 
 	err := r.Run(":8080")
 	if err != nil {
