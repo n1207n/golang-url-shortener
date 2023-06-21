@@ -1,0 +1,15 @@
+POST localhost:8080/shorten-url
+Content-Type: application/json
+Accept: application/json
+
+{
+  "original_url": "http://www.google.com",
+  "user_id": "{{$uuid}}"
+}
+
+> {%
+    client.global.set("short_url", response.body.short_url)
+%}
+
+###
+GET {{short_url}}
