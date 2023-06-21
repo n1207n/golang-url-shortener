@@ -27,7 +27,7 @@ func getBase58(bytes []byte) string {
 	return string(encoded)
 }
 
-func createShortUrl(originalLink string, userId string) string {
+func CreateShortUrl(originalLink string, userId string) string {
 	urlBytes := getSha256(originalLink)
 	hashedNumber := new(big.Int).SetBytes(urlBytes).Uint64()
 

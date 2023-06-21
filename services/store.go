@@ -10,9 +10,15 @@ type StorageService struct {
 	redisClient *redis.Client
 }
 
+// Compilation check
 var _ StorageService = StorageService{}
 
-func NewStorageService() *StorageService {
+var (
+	storageService *StorageService
+	ctx            = context.Background()
+)
+
+func NewStorageService() {
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
@@ -26,15 +32,10 @@ func NewStorageService() *StorageService {
 
 	fmt.Printf("\nRedis started successfully: pong message = {%s}", pong)
 
-	return &StorageService{
+	storageService = &StorageService{
 		redisClient: redisClient,
 	}
 }
-
-var (
-	storageService *StorageService = NewStorageService()
-	ctx                            = context.Background()
-)
 
 // SaveUrlMapping persists the url shortening record to the redis
 func SaveUrlMapping(shortUrl string, originalUrl string, userId string) {
