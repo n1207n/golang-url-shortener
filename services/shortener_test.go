@@ -1,12 +1,11 @@
 package services
 
 import (
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-var userId = uuid.New().String()
+var userId = "a531d8fc-a391-498a-99c1-eb25ac62fe2c"
 
 func TestShortener(t *testing.T) {
 	originalUrl1 := "https://www.google.com"
@@ -18,7 +17,7 @@ func TestShortener(t *testing.T) {
 	originalUrl3 := "https://www.instagram.com"
 	shortUrl3 := CreateShortUrl(originalUrl3, userId)
 
-	assert.Equal(t, shortUrl1, "hB5TnJXinCG")
-	assert.Equal(t, shortUrl2, "AccyLG2zZFu")
-	assert.Equal(t, shortUrl3, "5ip8weqia8n")
+	assert.Equal(t, "ScvuNxB8NF5", shortUrl1)
+	assert.Equal(t, "HcwMw9NwFZ1", shortUrl2)
+	assert.Equal(t, "CrKjD9my6Eo", shortUrl3)
 }
