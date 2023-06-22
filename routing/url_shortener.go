@@ -1,6 +1,7 @@
 package routing
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/n1207n/golang-url-shortener/services"
 	"net/http"
@@ -24,7 +25,7 @@ func GenerateShortUrl(c *gin.Context) {
 	services.SaveUrlMapping(shortUrl, request.OriginalUrl)
 
 	c.JSON(200, gin.H{
-		"short_url": "http://localhost:8080/" + shortUrl,
+		"short_url": fmt.Sprintf("%s/%s", services.GetAppApiAddr(), shortUrl),
 	})
 }
 
