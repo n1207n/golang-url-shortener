@@ -27,10 +27,14 @@ func getBase58(bytes []byte) string {
 	return string(encoded)
 }
 
+// CreateShortUrl creates a short ID by hashing the original link then encoding it with base58
 func CreateShortUrl(originalLink string, userId string) string {
-	urlBytes := getSha256(originalLink)
+	urlBytes := getSha256(fmt.Sprintf("%s|%s", originalLink, userId))
+
+	// Generate a random bigint number as a vessel and set the value by SetBytes
 	hashedNumber := new(big.Int).SetBytes(urlBytes).Uint64()
 
-	encoded := getBase58([]byte(fmt.Sprintf("%d", hashedNumber)))
+	hashedNumberBytes := []byte(fmt.Sprintf("%d", hashedNumber))
+	encoded := getBase58(hashedNumberBytes)
 	return encoded
 }

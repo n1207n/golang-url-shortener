@@ -10,13 +10,13 @@ var userId = uuid.New().String()
 
 func TestShortener(t *testing.T) {
 	originalUrl1 := "https://www.google.com"
-	shortUrl1 := createShortUrl(originalUrl1, userId)
+	shortUrl1 := CreateShortUrl(originalUrl1, userId)
 
 	originalUrl2 := "https://www.amazon.com"
-	shortUrl2 := createShortUrl(originalUrl2, userId)
+	shortUrl2 := CreateShortUrl(originalUrl2, userId)
 
 	originalUrl3 := "https://www.instagram.com"
-	shortUrl3 := createShortUrl(originalUrl3, userId)
+	shortUrl3 := CreateShortUrl(originalUrl3, userId)
 
 	assert.Equal(t, shortUrl1, "hB5TnJXinCG")
 	assert.Equal(t, shortUrl2, "AccyLG2zZFu")

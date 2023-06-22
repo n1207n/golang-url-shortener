@@ -18,11 +18,11 @@ var (
 	ctx            = context.Background()
 )
 
-func NewStorageService() {
+func NewStorageService(redisAddr string, redisPassword string, redisDB int) *StorageService {
 	redisClient := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       0,
+		Addr:     redisAddr,
+		Password: redisPassword,
+		DB:       redisDB,
 	})
 
 	pong, err := redisClient.Ping(ctx).Result()
@@ -35,10 +35,12 @@ func NewStorageService() {
 	storageService = &StorageService{
 		redisClient: redisClient,
 	}
+
+	return storageService
 }
 
 // SaveUrlMapping persists the url shortening record to the redis
-func SaveUrlMapping(shortUrl string, originalUrl string, userId string) {
+func SaveUrlMapping(shortUrl string, originalUrl string) {
 	err := storageService.redisClient.Set(ctx, shortUrl, originalUrl, -1).Err()
 	if err != nil {
 		panic(fmt.Sprintf("Failed saving key url | Error %v - shortUrl: %s - originalUrl: %s", err, shortUrl, originalUrl))
